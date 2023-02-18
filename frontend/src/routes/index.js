@@ -1,5 +1,5 @@
 import { HomePage, ProductPage } from "~/page";
-import { routesPath } from "~/page/config/route";
+import { routesPath } from "~/config/route";
 
 export const routes = [
     { path: routesPath.home, component: HomePage },
