@@ -1,38 +1,43 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchProduct } from "~/redux/actions";
+import { Col, Row } from "react-bootstrap";
+
+import { clearError, fetchProducts } from "~/redux/actions";
+import { Product } from "~/components/Product";
+import { Helmet } from "react-helmet-async";
 
 function HomePage() {
     const dispatch = useDispatch();
 
-    const products = useSelector((state) => state.productReducer.products);
+    const { products, loading, error } = useSelector((state) => state.productState);
 
     useEffect(() => {
-        dispatch(fetchProduct.fetchProductRequest());
+        dispatch(clearError());
+        if (products.length === 0) dispatch(fetchProducts.fetchProductsRequest());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
     return (
         <div>
+            <Helmet>
+                <title>Amazona</title>
+            </Helmet>
             <h1>Featured Products</h1>
-            <div className="products">
-                {products.map((product) => (
-                    <div key={product.slug} className="product">
-                        <Link to={`/product/${product.slug}`}>
-                            {" "}
-                            <img src={product.image} alt={product.name} />
-                        </Link>
-                        <div className="product-info">
-                            <Link to={`/product/${product.slug}`}>
-                                <p>{product.name}</p>
-                            </Link>
-                            <p>
-                                <strong>${product.price}</strong>
-                            </p>
-                        </div>
+            {loading ? (
+                <div>Loading...</div>
+            ) : error ? (
+                <div>{error}</div>
+            ) : (
+                <Row>
+                    <div className="products">
+                        {products.map((product) => (
+                            <Col key={product.slug} sm={6} md={6} lg={3} className="mb-3">
+                                <Product product={product} />
+                            </Col>
+                        ))}
                     </div>
-                ))}
-            </div>
+                </Row>
+            )}
         </div>
     );
 }

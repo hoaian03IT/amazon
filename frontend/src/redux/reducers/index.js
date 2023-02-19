@@ -2,4 +2,4 @@ import { combineReducers } from "@reduxjs/toolkit";
 
 import { productReducer } from "./productReducer";
 
-export default combineReducers({ productReducer });
+export default combineReducers({ productState: productReducer });

@@ -1,26 +1,40 @@
 import { getType } from "@reduxjs/toolkit";
 import { INIT_STATE } from "~/app/state";
-import { fetchProduct } from "../actions";
+import { clearError, fetchInfoProduct, fetchProducts } from "../actions";
 
 export const productReducer = (state = INIT_STATE.product, action) => {
     switch (action.type) {
-        case getType(fetchProduct.fetchProductRequest):
+        case getType(fetchInfoProduct.fetchInfoProductRequest):
+        case getType(fetchProducts.fetchProductsRequest):
             return {
                 ...state,
                 loading: true,
             };
-        case getType(fetchProduct.fetchProductSuccess):
+        case getType(fetchProducts.fetchProductsSuccess):
             return {
                 ...state,
                 products: action.payload,
                 loading: false,
             };
-        case getType(fetchProduct.fetchProductFail):
+        case getType(fetchInfoProduct.fetchInfoProductFail):
+        case getType(fetchProducts.fetchProductsFail):
             return {
                 ...state,
                 error: action.payload,
-                loading: true,
+                loading: false,
             };
+        case getType(fetchInfoProduct.fetchInfoProductSuccess):
+            return {
+                ...state,
+                product: action.payload,
+                loading: false,
+            };
+        case getType(clearError): {
+            return {
+                ...state,
+                error: "",
+            };
+        }
         default:
             return state;
     }
