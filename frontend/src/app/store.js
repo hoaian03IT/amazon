@@ -4,14 +4,6 @@ import rootReducer from "~/redux/reducers";
 import logger from "redux-logger";
 import mySaga from "~/redux/saga";
 
-export const INIT_STATE = {
-    product: {
-        products: [],
-        loading: true,
-        error: "",
-    },
-};
-
 const sagaMiddleware = createSagaMiddleware();
 
 export default configureStore({

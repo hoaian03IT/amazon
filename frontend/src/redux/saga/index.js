@@ -7,16 +7,16 @@ function* fetchProducts() {
         const res = yield call(api.fetchProductsAPI);
         yield put(actions.fetchProducts.fetchProductsSuccess(res.data));
     } catch (error) {
-        yield put(actions.fetchProducts.fetchProductsFail(error.message));
+        yield put(actions.fetchProducts.fetchProductsFail(error));
     }
 }
 
 function* fetchInfoProduct(action) {
     try {
-        const res = yield call(api.fetchInfoProductAPI, action.payload);
+        const res = yield call(api.fetchInfoProductBySlugAPI, action.payload);
         yield put(actions.fetchInfoProduct.fetchInfoProductSuccess(res.data));
     } catch (error) {
-        yield put(actions.fetchInfoProduct.fetchInfoProductFail(error.message));
+        yield put(actions.fetchInfoProduct.fetchInfoProductFail(error));
     }
 }
 

@@ -10,6 +10,22 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+/* Custom scrollbar */
+html *::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+}
+
+html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(22, 24, 35, 0.06);
+}
+
+html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
 /* CSS file */
 @import "normalize.css";
 
@@ -47,6 +63,16 @@ main .products .product .product-info {
     border: 1px solid var(--yellow-color);
 }
 
+.spinner-loading {
+    color: var(--yellow-color);
+    width: 60px;
+    height: 60px;
+}
+
 .img-large {
     max-width: 100%;
+}
+
+.img-thumbnail {
+    height: 80px;
 }

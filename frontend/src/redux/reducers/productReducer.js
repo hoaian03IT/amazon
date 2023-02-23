@@ -1,8 +1,10 @@
 import { getType } from "@reduxjs/toolkit";
-import { INIT_STATE } from "~/app/state";
+
+import { INITIAL_STATE } from "~/app/initialState";
+import { getError } from "~/utils/getError";
 import { clearError, fetchInfoProduct, fetchProducts } from "../actions";
 
-export const productReducer = (state = INIT_STATE.product, action) => {
+export const productReducer = (state = INITIAL_STATE.product, action) => {
     switch (action.type) {
         case getType(fetchInfoProduct.fetchInfoProductRequest):
         case getType(fetchProducts.fetchProductsRequest):
@@ -20,7 +22,7 @@ export const productReducer = (state = INIT_STATE.product, action) => {
         case getType(fetchProducts.fetchProductsFail):
             return {
                 ...state,
-                error: action.payload,
+                error: getError(action.payload),
                 loading: false,
             };
         case getType(fetchInfoProduct.fetchInfoProductSuccess):

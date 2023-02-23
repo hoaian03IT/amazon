@@ -1,19 +1,29 @@
+// lib
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./index.css";
+import { HelmetProvider } from "react-helmet-async";
+import { Provider } from "react-redux";
+import axios from "axios";
+
+// file
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-
 import store from "./app/store";
-import { Provider } from "react-redux";
-import { HelmetProvider } from "react-helmet-async";
+import { ContextProvider } from "./components/ContextProvider";
+
+// styles
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
+
+axios.defaults.baseURL = "http://localhost:5000";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <Provider store={store}>
         <HelmetProvider>
-            <App />
+            <ContextProvider>
+                <App />
+            </ContextProvider>
         </HelmetProvider>
     </Provider>
 );

@@ -1,15 +1,23 @@
-import { useEffect } from "react";
-import { Col, Row, Image, ListGroup, Card, Badge, Button } from "react-bootstrap";
-import { Helmet } from "react-helmet-async";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Col, Row, Image, ListGroup, Card, Badge, Button } from "react-bootstrap";
+import { Helmet } from "react-helmet-async";
+
+import { Context } from "~/components/ContextProvider";
+import { LoadingBox } from "~/components/LoadingBox";
+import { MessageBox } from "~/components/MessageBox";
 import { Rating } from "~/components/Rating";
 import { clearError, fetchInfoProduct } from "~/redux/actions";
+import { productState$ } from "~/redux/selectors";
 
 function ProductPage() {
     const dispatch = useDispatch();
 
-    const { loading, product, error } = useSelector((state) => state.productState);
+    const [showAddSuccess, setShowAddSuccess] = useState(false);
+    const { loading, product, error } = useSelector(productState$);
+
+    const { handleAddProductToCart } = useContext(Context);
 
     const params = useParams();
     const { slug } = params;
@@ -19,12 +27,22 @@ function ProductPage() {
         dispatch(fetchInfoProduct.fetchInfoProductRequest(slug));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [slug]);
+
+    useEffect(() => {
+        let handle;
+        if (showAddSuccess) handle = setTimeout(() => setShowAddSuccess(false), 2000);
+        return () => clearTimeout(handle);
+    }, [showAddSuccess]);
+
     return loading ? (
-        <div>Loading...</div>
+        <LoadingBox />
     ) : error ? (
-        <div>{error}</div>
+        <MessageBox variant="danger">{error}</MessageBox>
     ) : (
         <div>
+            <MessageBox variant="success" show={showAddSuccess}>
+                Added product
+            </MessageBox>
             <Row>
                 <Col md={6} className="text-center">
                     <Image loading="lazy" className="img-large" src={product?.image} alt={product?.slug} />
@@ -72,7 +90,13 @@ function ProductPage() {
                                     {product?.countInStock > 0 && (
                                         <ListGroup.Item>
                                             <div className="d-grid">
-                                                <Button>Add to cart</Button>
+                                                <Button
+                                                    onClick={() => {
+                                                        handleAddProductToCart(product);
+                                                        setShowAddSuccess(true);
+                                                    }}>
+                                                    Add to cart
+                                                </Button>
                                             </div>
                                         </ListGroup.Item>
                                     )}
