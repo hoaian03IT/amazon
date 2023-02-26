@@ -1,27 +1,30 @@
-import data from "../../../data.js";
+import { productModel } from "../models/productModel.js";
 
-class ProductCtrl {
-    getAllProducts(req, res) {
-        res.send(data.products);
-    }
-
-    getInfoProduct(req, res) {
-        const product = data.products.find((x) => x.slug === req.params.slug);
-        if (product) {
-            res.status(200).send(product);
-        } else {
-            res.status(404).send({ message: "Product Not Found" });
+class productClass {
+    async getAllProducts(req, res) {
+        try {
+            const products = await productModel.find();
+            res.status(200).send(products);
+        } catch (error) {
+            res.status(400).send({ message: "Fetch all products failed" });
         }
     }
 
-    getStockProduct(req, res) {
-        const product = data.products.find((x) => x._id === Number(req.params.id));
-        if (product) {
+    async getInfoProduct(req, res) {
+        try {
+            let product;
+            const _id = req.params.id;
+            const slug = req.params.slug;
+            if (_id) {
+                product = await productModel.findById(_id);
+            } else {
+                product = await productModel.findOne({ slug });
+            }
             res.status(200).send(product);
-        } else {
-            res.status(404).send({ message: "Product Not Found" });
+        } catch (error) {
+            res.status(400).send({ message: "Product not found" });
         }
     }
 }
 
-export const productControl = new ProductCtrl();
+export const productControl = new productClass();

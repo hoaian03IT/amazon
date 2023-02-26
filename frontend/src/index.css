@@ -34,6 +34,14 @@ html *::-webkit-scrollbar-track {
     --yellow-color: #ffc000;
 }
 
+.site-container {
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
 main .products {
     display: flex;
     flex-wrap: wrap;
@@ -75,4 +83,8 @@ main .products .product .product-info {
 
 .img-thumbnail {
     height: 80px;
+}
+
+.small-container {
+    max-width: 540px;
 }

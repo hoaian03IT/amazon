@@ -32,13 +32,13 @@ export const CartPage = () => {
     };
 
     const handleProceedToCheckout = () => {
-        navigate("/signin?/redirect=/shipping");
+        navigate("/signin?redirect=/shipping");
     };
 
     return (
         <div>
             <Helmet>
-                <title>Amazona</title>
+                <title>Cart</title>
             </Helmet>
             <h1>Shopping cart</h1>
             <Row>
