@@ -14,6 +14,8 @@ import { ContextProvider } from "./components/ContextProvider";
 // styles
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
+import "react-toastify/dist/ReactToastify.css";
+import { BrowserRouter } from "react-router-dom";
 
 axios.defaults.baseURL = "http://localhost:5000";
 
@@ -21,9 +23,11 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <Provider store={store}>
         <HelmetProvider>
-            <ContextProvider>
-                <App />
-            </ContextProvider>
+            <BrowserRouter>
+                <ContextProvider>
+                    <App />
+                </ContextProvider>
+            </BrowserRouter>
         </HelmetProvider>
     </Provider>
 );

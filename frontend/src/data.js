@@ -1,56 +1,33 @@
-import { images } from "./assets/image";
-
 const data = {
-    products: [
+    countries: [
         {
-            name: "Nike slim shirt",
-            slug: "nike-slim-shirt",
-            category: "Shirts",
-            image: images.p1,
-            price: 120,
-            countInStock: 10,
-            brand: "Nike",
-            rating: 4.5,
-            numReviews: 10,
-            description: "high quality shirt",
+            id: 0,
+            name: "Vietnam",
+            cities: [
+                { id: 0, name: "Ha Noi" },
+                { id: 1, name: "Da Nang" },
+                { id: 2, name: "Ho Chi Minh" },
+            ],
         },
         {
-            name: "Nike slim pant",
-            slug: "nike-slim-pant",
-            category: "Pants",
-            image: images.p3,
-            price: 100,
-            countInStock: 5,
-            brand: "Nike",
-            rating: 405,
-            numReviews: 8,
-            description: "high quality pant",
+            id: 1,
+            name: "America",
+            cities: [
+                { id: 0, name: "New York" },
+                { id: 1, name: "Washington" },
+                { id: 2, name: "California" },
+            ],
         },
         {
-            name: "Adidas fit shirt",
-            slug: "adidas-fit-shirt",
-            category: "Shirts",
-            image: images.p2,
-            price: 120,
-            countInStock: 10,
-            brand: "Adidas",
-            rating: 4.5,
-            numReviews: 10,
-            description: "high quality shirt",
-        },
-        {
-            name: "Adidas fit pant",
-            slug: "adidas-fit-pant",
-            category: "Pants",
-            image: images.p4,
-            price: 120,
-            countInStock: 10,
-            brand: "Adidas",
-            rating: 4.5,
-            numReviews: 10,
-            description: "high quality pant",
+            id: 2,
+            name: "China",
+            cities: [
+                { id: 0, name: "Zhengzhou" },
+                { id: 1, name: "Wuhan" },
+                { id: 2, name: "Hubei" },
+            ],
         },
     ],
 };
 
-export default data;
+export { data };

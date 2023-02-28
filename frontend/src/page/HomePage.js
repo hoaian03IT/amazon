@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Row } from "react-bootstrap";
 
-import { clearError, fetchProducts } from "~/redux/actions";
+import { fetchProducts } from "~/redux/actions";
 import { Product } from "~/components/Product";
 import { Helmet } from "react-helmet-async";
 import { LoadingBox } from "~/components/LoadingBox";
@@ -15,7 +15,6 @@ function HomePage() {
     const { products, loading, error } = useSelector(productState$);
 
     useEffect(() => {
-        dispatch(clearError());
         if (products.length === 0) dispatch(fetchProducts.fetchProductsRequest());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);

@@ -1,4 +1,4 @@
-import { createAction, createActions } from "redux-actions";
+import { createActions } from "redux-actions";
 
 export const fetchProducts = createActions({
     fetchProductsRequest: undefined,
@@ -11,5 +11,3 @@ export const fetchInfoProduct = createActions({
     fetchInfoProductSuccess: (payload) => payload,
     fetchInfoProductFail: (error) => error,
 });
-
-export const clearError = createAction("clearError");

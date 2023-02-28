@@ -1,26 +1,11 @@
-import { call, put, takeLatest } from "redux-saga/effects";
-import * as api from "~/app/api";
+import { takeLatest } from "redux-saga/effects";
 import * as actions from "~/redux/actions";
-
-function* fetchProducts() {
-    try {
-        const res = yield call(api.fetchProductsAPI);
-        yield put(actions.fetchProducts.fetchProductsSuccess(res.data));
-    } catch (error) {
-        yield put(actions.fetchProducts.fetchProductsFail(error));
-    }
-}
-
-function* fetchInfoProduct(action) {
-    try {
-        const res = yield call(api.fetchInfoProductBySlugAPI, action.payload);
-        yield put(actions.fetchInfoProduct.fetchInfoProductSuccess(res.data));
-    } catch (error) {
-        yield put(actions.fetchInfoProduct.fetchInfoProductFail(error));
-    }
-}
+import { fetchInfoProductSaga, fetchProductsSaga } from "./productSaga";
+import { signInSaga, signUpSaga } from "./userSaga";
 
 export default function* mySaga() {
-    yield takeLatest(actions.fetchProducts.fetchProductsRequest, fetchProducts);
-    yield takeLatest(actions.fetchInfoProduct.fetchInfoProductRequest, fetchInfoProduct);
+    yield takeLatest(actions.fetchProducts.fetchProductsRequest, fetchProductsSaga);
+    yield takeLatest(actions.fetchInfoProduct.fetchInfoProductRequest, fetchInfoProductSaga);
+    yield takeLatest(actions.signIn.signInRequest, signInSaga);
+    yield takeLatest(actions.signUp.signUpRequest, signUpSaga);
 }

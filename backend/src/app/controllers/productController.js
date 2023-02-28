@@ -10,16 +10,23 @@ class productClass {
         }
     }
 
-    async getInfoProduct(req, res) {
+    async getInfoProductBySlug(req, res) {
         try {
-            let product;
-            const _id = req.params.id;
             const slug = req.params.slug;
-            if (_id) {
-                product = await productModel.findById(_id);
-            } else {
-                product = await productModel.findOne({ slug });
-            }
+            const product = await productModel.findOne({ slug });
+
+            if (product) res.status(200).send(product);
+            else res.status(400).send({ message: "Product not found" });
+        } catch (error) {
+            res.status(500).send({ message: error.message });
+        }
+    }
+
+    async getInfoProductById(req, res) {
+        try {
+            const _id = req.params.id;
+            const product = await productModel.findById(_id);
+
             res.status(200).send(product);
         } catch (error) {
             res.status(400).send({ message: "Product not found" });

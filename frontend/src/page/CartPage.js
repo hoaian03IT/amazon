@@ -5,16 +5,18 @@ import { Helmet } from "react-helmet-async";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchInfoProductByIdAPI } from "~/app/api";
+
 import { MessageBox } from "~/components/MessageBox";
 import { routesPath } from "~/config/route";
-import { addProductToCard, removeProductCart } from "~/redux/actions/cartActions";
-import { cartState$ } from "~/redux/selectors";
+import { addProductToCard, removeProductCart } from "~/redux/actions";
+import { cartState$, userState$ } from "~/redux/selectors";
 
 export const CartPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const { cartItems } = useSelector(cartState$);
+    const { userInfo } = useSelector(userState$);
 
     const handleUpdateCart = async (item, quantity) => {
         const { data } = await fetchInfoProductByIdAPI(item._id);
@@ -43,12 +45,16 @@ export const CartPage = () => {
             <h1>Shopping cart</h1>
             <Row>
                 <Col md={8}>
-                    {cartItems.length === 0 ? (
+                    {!userInfo ? (
+                        <MessageBox>
+                            Please sign in before buying. <Link to={routesPath.signIn}>Sign in</Link>
+                        </MessageBox>
+                    ) : cartItems.length === 0 ? (
                         <MessageBox>
                             Cart is empty. <Link to={routesPath.home}>Go shopping.</Link>
                         </MessageBox>
                     ) : (
-                        <ListGroup>
+                        <ListGroup className="list-group-scroll-large">
                             {cartItems.map((item) => {
                                 return (
                                     <ListGroup.Item key={item._id}>

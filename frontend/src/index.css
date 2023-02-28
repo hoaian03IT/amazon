@@ -88,3 +88,43 @@ main .products .product .product-info {
 .small-container {
     max-width: 540px;
 }
+
+/* cart */
+.badge-cart {
+    position: absolute;
+    top: 0;
+    left: 16px;
+}
+
+/* avatar navbar */
+.img-avatar,
+.icon-user {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Checkout-steps */
+.checkout-steps > div {
+    border-bottom: 0.3rem solid #a0a0a0;
+    color: #a0a0a0;
+    border-radius: 2px;
+}
+
+.checkout-steps > div.active {
+    border-bottom: 0.3rem solid #f08000;
+    color: #f08000;
+    border-radius: 2px;
+}
+
+/* List group */
+.list-group-scroll-small {
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.list-group-scroll-large {
+    height: 800px;
+    overflow-y: scroll;
+}

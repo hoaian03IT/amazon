@@ -3,4 +3,8 @@ export const routesPath = {
     product: "/product/:slug",
     cart: "/cart",
     signIn: "/signin",
+    shippingAddress: "/shipping",
+    signUp: "/signup",
+    paymentMethod: "/paymentmethod",
+    orderPlace: "/orderplace",
 };
