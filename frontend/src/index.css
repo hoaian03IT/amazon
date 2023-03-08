@@ -128,3 +128,16 @@ main .products .product .product-info {
     height: 800px;
     overflow-y: scroll;
 }
+
+.link-grey {
+    color: #777;
+    text-decoration: none;
+    user-select: none;
+}
+
+.link-grey:hover {
+    color: #777;
+}
+.link-grey.disable {
+    pointer-events: none;
+}

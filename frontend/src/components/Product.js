@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Image } from "react-bootstrap";
 
 import { Rating } from "./Rating";
 import { Context } from "./ContextProvider";
@@ -11,7 +11,14 @@ export const Product = ({ product }) => {
     return (
         <Card className="product">
             <Card.Link as={Link} to={`/product/${product.slug}`}>
-                <Card.Img variant="top" src={product.image} alt={product.name} />
+                <Card.Img
+                    as={Image}
+                    thumbnail
+                    style={{ height: "363px", width: "290px" }}
+                    variant="top"
+                    src={product.image}
+                    alt={product.name}
+                />
             </Card.Link>
             <Card.Body className="product-info">
                 <Card.Link as={Link} to={`/product/${product.slug}`}>

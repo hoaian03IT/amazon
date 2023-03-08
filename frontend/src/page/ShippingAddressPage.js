@@ -17,11 +17,17 @@ export const ShippingAddressPage = () => {
 
     const redirect = redirectURL || routesPath.paymentMethod;
 
-    const [fullName, setFullName] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [address, setAddress] = useState("");
-    const [valueCountry, setValueCountry] = useState(-1);
-    const [valueCity, setValueCity] = useState(-1);
+    const { shippingAddress } = useSelector(cartState$);
+
+    const [fullName, setFullName] = useState(shippingAddress?.fullName || "");
+    const [phoneNumber, setPhoneNumber] = useState(shippingAddress?.phoneNumber || "");
+    const [address, setAddress] = useState(shippingAddress?.address || "");
+    const [valueCountry, setValueCountry] = useState(
+        data.countries.findIndex((country) => country.name === shippingAddress?.country) + "" || "-1"
+    );
+    const [valueCity, setValueCity] = useState(
+        data.countries[Number(valueCountry)]?.cities.findIndex((city) => city.name === shippingAddress?.city) || "-1"
+    );
 
     const navigate = useNavigate();
     const dispatch = useDispatch();

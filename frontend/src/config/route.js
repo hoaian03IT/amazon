@@ -7,4 +7,5 @@ export const routesPath = {
     signUp: "/signup",
     paymentMethod: "/paymentmethod",
     orderPlace: "/orderplace",
+    orderDetail: "/orderdetail/:id",
 };

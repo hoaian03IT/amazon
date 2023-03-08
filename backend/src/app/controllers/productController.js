@@ -34,4 +34,4 @@ class productClass {
     }
 }
 
-export const productControl = new productClass();
+export const productController = new productClass();

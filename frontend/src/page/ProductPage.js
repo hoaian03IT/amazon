@@ -34,7 +34,13 @@ function ProductPage() {
         <div>
             <Row>
                 <Col md={6} className="text-center">
-                    <Image loading="lazy" className="img-large" src={product?.image} alt={product?.slug} />
+                    <Image
+                        style={{ height: "593px", width: "473px" }}
+                        loading="lazy"
+                        className="img-large"
+                        src={product?.image}
+                        alt={product?.slug}
+                    />
                 </Col>
                 <Col md={3}>
                     <ListGroup variant="flush">

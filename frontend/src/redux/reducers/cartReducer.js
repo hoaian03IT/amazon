@@ -31,6 +31,7 @@ export const cartReducer = (state = INITIAL_STATE.cart, action) => {
         case getType(addPaymentMethod):
             localStorage.setItem(paymentMethodKey, JSON.stringify(action.payload));
             return { ...state, paymentMethod: action.payload };
+
         default:
             return state;
     }

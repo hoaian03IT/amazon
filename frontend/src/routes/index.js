@@ -6,6 +6,7 @@ import { ShippingAddressPage } from "~/page/ShippingAddressPage";
 import { SignUpPage } from "~/page/SignUpPage";
 import { PaymentMethodPage } from "~/page/PaymentMethodPage";
 import { OrderPlacePage } from "~/page/OrderPlacePage";
+import { OrderDetailPage } from "~/page/OrderDetailPage";
 
 export const routes = [
     { path: routesPath.home, component: HomePage },
@@ -16,4 +17,5 @@ export const routes = [
     { path: routesPath.shippingAddress, component: ShippingAddressPage },
     { path: routesPath.paymentMethod, component: PaymentMethodPage },
     { path: routesPath.orderPlace, component: OrderPlacePage },
+    { path: routesPath.orderDetail, component: OrderDetailPage },
 ];
