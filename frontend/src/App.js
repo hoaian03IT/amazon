@@ -57,10 +57,10 @@ function App() {
                                         alt={userInfo.name}
                                     />
                                     <Dropdown.Menu align="end">
-                                        <Dropdown.Item as={Link} to={routesPath.cart}>
+                                        <Dropdown.Item as={Link} to={routesPath.profile}>
                                             Profile
                                         </Dropdown.Item>
-                                        <Dropdown.Item as={Link} to={routesPath.cart}>
+                                        <Dropdown.Item as={Link} to={routesPath.orderHistory}>
                                             Order history
                                         </Dropdown.Item>
                                         <Dropdown.Divider />

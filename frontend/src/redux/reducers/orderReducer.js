@@ -3,16 +3,20 @@ import { toast } from "react-toastify";
 import { INITIAL_STATE } from "~/app/initialState";
 import { routesPath } from "~/config/route";
 import { cartItemKey } from "~/constants";
-import { fetchOrder, placeOrder } from "../actions";
+import { fetchOrder, fetchOrdersHistory, payOrder, payOrderReset, placeOrder } from "../actions";
 
 export const orderReducer = (state = INITIAL_STATE.order, action) => {
     switch (action.type) {
         case getType(placeOrder.placeOrderRequest):
         case getType(fetchOrder.fetchOrderRequest):
+        case getType(payOrder.payOrderRequest):
+        case getType(fetchOrdersHistory.fetchOrdersHistoryRequest):
             return { ...state, loading: true };
 
         case getType(placeOrder.placeOrderFail):
         case getType(fetchOrder.fetchOrderFail):
+        case getType(payOrder.payOrderFail):
+        case getType(fetchOrdersHistory.fetchOrdersHistoryFail):
             toast.error(action.payload);
             return { ...state, loading: false, error: action.payload };
 
@@ -26,6 +30,7 @@ export const orderReducer = (state = INITIAL_STATE.order, action) => {
                 ...state,
                 loading: false,
                 orderInfo: data,
+                error: undefined,
             };
 
         case getType(fetchOrder.fetchOrderSuccess):
@@ -36,6 +41,29 @@ export const orderReducer = (state = INITIAL_STATE.order, action) => {
                 orderInfo: action.payload,
             };
 
+        case getType(payOrder.payOrderSuccess):
+            return {
+                ...state,
+                loading: false,
+                paySuccess: true,
+                error: undefined,
+            };
+
+        case getType(fetchOrdersHistory.fetchOrdersHistorySuccess):
+            return {
+                ...state,
+                loading: false,
+                error: undefined,
+                history: action.payload,
+            };
+
+        case getType(payOrderReset):
+            return {
+                ...state,
+                loading: false,
+                paySuccess: false,
+                error: undefined,
+            };
         default:
             return state;
     }

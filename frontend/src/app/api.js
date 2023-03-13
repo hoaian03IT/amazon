@@ -6,8 +6,7 @@ export const fetchInfoProductByIdAPI = async (id) => await axios.get(`/api/produ
 export const signInAPI = async (payload) => await axios.post("/api/users/signin", payload);
 export const signUpAPI = async (payload) => await axios.post("/api/users/signup", payload);
 export const placeOrderAPI = async (payload) => {
-    const { orderItems, shippingAddress, paymentMethod, itemsPrice, shippingPrice, taxPrice, totalPrice, token } =
-        payload;
+    const { orderItems, shippingAddress, paymentMethod, itemsPrice, shippingPrice, taxPrice, totalPrice, token } = payload;
 
     return await axios.post(
         "/api/orders",
@@ -34,4 +33,28 @@ export const fetchOrderAPI = async (payload) => {
             Authorization: `Bearer ${token}`,
         },
     });
+};
+export const payOrderAPI = async (payload) => {
+    const { id, details, token } = payload;
+    return await axios.post(`/api/orders/${id}/pay`, details, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+};
+export const fetchOrdersHistoryAPI = async (payload) =>
+    await axios.get("/api/orders/mine", {
+        headers: {
+            Authorization: `Bearer ${payload.token}`,
+        },
+    });
+export const updateUserInfo = async (payload) => {
+    const { avatar, name, password, token } = payload;
+    return await axios.post(
+        "/api/users/updateInfo",
+        { avatar, name, password },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
 };

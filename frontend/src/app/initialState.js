@@ -23,5 +23,7 @@ export const INITIAL_STATE = {
         orderInfo: undefined,
         error: undefined,
         loading: false,
+        paySuccess: false,
+        history: [],
     },
 };

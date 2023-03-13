@@ -29,6 +29,7 @@ class userClass {
                 _id: newUser._id,
                 avatar: newUser.avatar,
                 name: newUser.name,
+                password,
                 email: newUser.email,
                 isAmin: newUser.isAdmin,
                 token: generateToken(newUser),
@@ -42,7 +43,7 @@ class userClass {
         try {
             const { email, password } = req.body;
 
-            const user = await userModel.findOne({ email: email });
+            const user = await userModel.findOne({ email });
             if (!user) {
                 res.status(400).send({ message: "Invalid email" });
                 return;
@@ -57,6 +58,27 @@ class userClass {
             res.status(200).send({
                 _id: user._id,
                 avatar: user.avatar,
+                password: password,
+                name: user.name,
+                email: user.email,
+                isAmin: user.isAdmin,
+                token: generateToken(user),
+            });
+        } catch (error) {
+            res.status(500).send({ message: error.message });
+        }
+    }
+
+    async updateInfo(req, res) {
+        try {
+            const { avatar, name, password } = req.body;
+            const hashPassword = bcrypt.hashSync(password, 10);
+            const user = await userModel.findByIdAndUpdate(req.user.id, { avatar, name, password: hashPassword }, { new: true });
+
+            res.status(200).send({
+                _id: user._id,
+                avatar: user.avatar,
+                password: password,
                 name: user.name,
                 email: user.email,
                 isAmin: user.isAdmin,

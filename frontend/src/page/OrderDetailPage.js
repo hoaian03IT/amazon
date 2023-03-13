@@ -1,3 +1,5 @@
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+import axios from "axios";
 import { useEffect } from "react";
 import { Card, Col, ListGroup, Row } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
@@ -8,11 +10,12 @@ import { ListItems } from "~/components/ListItems";
 import { LoadingBox } from "~/components/LoadingBox";
 import { MessageBox } from "~/components/MessageBox";
 import { routesPath } from "~/config/route";
-import { fetchOrder } from "~/redux/actions";
+import { fetchOrder, payOrder, payOrderReset } from "~/redux/actions";
 import { orderState$, userState$ } from "~/redux/selectors";
+import { getError } from "~/utils/getError";
 
 export const OrderDetailPage = () => {
-    const { orderInfo, loading, error } = useSelector(orderState$);
+    const { orderInfo, loading, error, paySuccess } = useSelector(orderState$);
     const { userInfo } = useSelector(userState$);
 
     const navigate = useNavigate();
@@ -20,14 +23,61 @@ export const OrderDetailPage = () => {
 
     const { id } = useParams();
 
+    const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+
+    const createOrder = (data, actions) => {
+        return actions.order
+            .create({
+                purchase_units: [
+                    {
+                        amount: {
+                            value: orderInfo.totalPrice,
+                        },
+                    },
+                ],
+            })
+            .then((orderID) => orderID);
+    };
+    const onApprove = (data, actions) => {
+        return actions.order.capture().then(async (details) => {
+            dispatch(payOrder.payOrderRequest({ id, details, token: userInfo?.token }));
+        });
+    };
+    const onError = (err) => {
+        toast.error(getError(err));
+    };
+
     useEffect(() => {
         if (!userInfo) {
             toast.error("You need to sign-in!");
             navigate(routesPath.signIn + `?redirect=${routesPath.orderDetail.slice(0, 12)}/${id}`);
         }
-        dispatch(fetchOrder.fetchOrderRequest({ id, token: userInfo?.token }));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+
+        if (orderInfo?._id !== id || paySuccess) {
+            dispatch(fetchOrder.fetchOrderRequest({ id, token: userInfo?.token }));
+            if (paySuccess) {
+                dispatch(payOrderReset());
+            }
+        } else {
+            const loadPaypalScript = async () => {
+                const { data: clientId } = await axios.get("/api/keys/paypal", {
+                    headers: {
+                        Authorization: `Bearer ${userInfo.token}`,
+                    },
+                });
+                paypalDispatch({
+                    type: "resetOptions",
+                    value: {
+                        "client-id": clientId,
+                        currency: "USD",
+                    },
+                });
+                paypalDispatch({ type: "setLoadingStatus", value: "pending" });
+            };
+
+            loadPaypalScript();
+        }
+    }, [dispatch, id, navigate, orderInfo, paypalDispatch, userInfo, paySuccess]);
 
     return loading ? (
         <LoadingBox />
@@ -116,6 +166,23 @@ export const OrderDetailPage = () => {
                                         </Col>
                                     </Row>
                                 </ListGroup.Item>
+                                {!orderInfo?.isPaid && (
+                                    <ListGroup.Item>
+                                        {isPending ? (
+                                            <LoadingBox />
+                                        ) : (
+                                            orderInfo?.paymentMethod === "Paypal" && (
+                                                <div>
+                                                    <PayPalButtons
+                                                        createOrder={createOrder}
+                                                        onApprove={onApprove}
+                                                        onError={onError}
+                                                    />
+                                                </div>
+                                            )
+                                        )}
+                                    </ListGroup.Item>
+                                )}
                             </ListGroup>
                         </Card.Body>
                     </Card>

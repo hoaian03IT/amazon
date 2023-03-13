@@ -43,6 +43,36 @@ class orderClass {
             res.status(500).send(error.message);
         }
     }
+
+    async payOrder(req, res) {
+        try {
+            const id = req.params.id;
+            const order = await orderModel.findById(id);
+            order.isPaid = true;
+            order.paidAt = Date.now();
+            order.paymentResult = {
+                id,
+                status: req.body.status,
+                update_time: req.body.update_time,
+                email_address: req.body.email_address,
+            };
+
+            const updateOrder = await order.save();
+            res.status(200).send(updateOrder);
+        } catch (error) {
+            res.status(400).send({ message: error.message });
+        }
+    }
+
+    async getAllOrderByUser(req, res) {
+        try {
+            const id = req.user.id;
+            const orders = await orderModel.find({ user: id });
+            res.status(200).send(orders);
+        } catch (error) {
+            res.status(400).send({ message: error.message });
+        }
+    }
 }
 
 export const orderController = new orderClass();

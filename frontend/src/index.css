@@ -89,6 +89,14 @@ main .products .product .product-info {
     max-width: 540px;
 }
 
+.small-container.profile {
+    border: 1px solid #dfdfdf;
+    padding: 32px;
+    border-radius: 10px;
+    background-color: #fbfbfb;
+    box-shadow: 1px 1px #fff;
+}
+
 /* cart */
 .badge-cart {
     position: absolute;
@@ -103,6 +111,14 @@ main .products .product .product-info {
     width: 24px;
     border-radius: 50%;
     cursor: pointer;
+}
+
+.image-avatar-profile {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
 }
 
 /* Checkout-steps */
@@ -140,4 +156,21 @@ main .products .product .product-info {
 }
 .link-grey.disable {
     pointer-events: none;
+}
+
+.text-href {
+    color: #007aff;
+    font-style: italic;
+    cursor: pointer;
+}
+.text-href:hover {
+    text-decoration: underline;
+    font-weight: bolder;
+}
+
+.icon-eyes-button {
+    top: 50%;
+    transform: translateY(-50%);
+    right: 4px;
+    cursor: pointer;
 }

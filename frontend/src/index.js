@@ -16,6 +16,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter } from "react-router-dom";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 axios.defaults.baseURL = "http://localhost:5000";
 
@@ -24,9 +25,11 @@ root.render(
     <Provider store={store}>
         <HelmetProvider>
             <BrowserRouter>
-                <ContextProvider>
-                    <App />
-                </ContextProvider>
+                <PayPalScriptProvider deferLoading={true}>
+                    <ContextProvider>
+                        <App />
+                    </ContextProvider>
+                </PayPalScriptProvider>
             </BrowserRouter>
         </HelmetProvider>
     </Provider>

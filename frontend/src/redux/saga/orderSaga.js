@@ -50,4 +50,22 @@ function* fetchOrderSaga(action) {
     }
 }
 
-export { fetchOrderSaga, placeOrderSaga };
+function* payOrderSaga(action) {
+    try {
+        const res = yield call(api.payOrderAPI, action.payload);
+        yield put(actions.payOrder.payOrderSuccess(res.data));
+    } catch (error) {
+        yield put(actions.payOrder.payOrderFail(getError(error)));
+    }
+}
+
+function* fetchOrdersHistorySaga(action) {
+    try {
+        const res = yield call(api.fetchOrdersHistoryAPI, action.payload);
+        yield put(actions.fetchOrdersHistory.fetchOrdersHistorySuccess(res.data));
+    } catch (error) {
+        yield put(actions.fetchOrdersHistory.fetchOrdersHistoryFail(getError(error)));
+    }
+}
+
+export { fetchOrderSaga, placeOrderSaga, payOrderSaga, fetchOrdersHistorySaga };

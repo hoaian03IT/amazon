@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button, Card, Col, Image, ListGroup, Row, Spinner } from "react-bootstrap";
+import { Button, Card, Col, ListGroup, Row, Spinner } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";

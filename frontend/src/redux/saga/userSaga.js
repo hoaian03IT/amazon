@@ -21,4 +21,13 @@ function* signUpSaga(action) {
     }
 }
 
-export { signInSaga, signUpSaga };
+function* updateUserInfoSaga(action) {
+    try {
+        const res = yield call(api.updateUserInfo, action.payload);
+        yield put(actions.updateUserInfo.updateUserInfoSuccess(res.data));
+    } catch (error) {
+        yield put(actions.updateUserInfo.updateUserInfoFail(getError(error)));
+    }
+}
+
+export { signInSaga, signUpSaga, updateUserInfoSaga };

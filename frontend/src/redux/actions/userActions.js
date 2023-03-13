@@ -12,4 +12,10 @@ export const signIn = createActions({
     signInFail: (err) => err,
 });
 
+export const updateUserInfo = createActions({
+    updateUserInfoRequest: (payload) => payload,
+    updateUserInfoSuccess: (payload) => payload,
+    updateUserInfoFail: (err) => err,
+});
+
 export const signOut = createAction("signOut");
