@@ -9,6 +9,7 @@ import { OrderPlacePage } from "~/page/OrderPlacePage";
 import { OrderDetailPage } from "~/page/OrderDetailPage";
 import { OrderHistory } from "~/page/OrderHistory";
 import { UserProfile } from "~/page/UserProfile";
+import { SearchPage } from "~/page/SearchPage";
 
 export const routes = [
     { path: routesPath.home, component: HomePage },
@@ -22,4 +23,5 @@ export const routes = [
     { path: routesPath.orderDetail, component: OrderDetailPage },
     { path: routesPath.orderHistory, component: OrderHistory },
     { path: routesPath.profile, component: UserProfile },
+    { path: routesPath.search, component: SearchPage },
 ];

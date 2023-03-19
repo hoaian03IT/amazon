@@ -46,7 +46,7 @@ export const fetchOrdersHistoryAPI = async (payload) =>
             Authorization: `Bearer ${payload.token}`,
         },
     });
-export const updateUserInfo = async (payload) => {
+export const updateUserInfoAPI = async (payload) => {
     const { avatar, name, password, token } = payload;
     return await axios.post(
         "/api/users/updateInfo",
@@ -56,5 +56,12 @@ export const updateUserInfo = async (payload) => {
                 Authorization: `Bearer ${token}`,
             },
         }
+    );
+};
+export const fetchCategoriesAPI = async () => await axios.get("/api/products/categories");
+export const fetchFilteredProductAPI = async (payload) => {
+    const { page, query, category, price, rating, order } = payload;
+    return await axios.get(
+        `/api/products/search?page=${page}&query=${query}&category=${category}&price=${price}&rating=${rating}&order=${order}`
     );
 };

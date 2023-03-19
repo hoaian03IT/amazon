@@ -54,10 +54,7 @@ export const OrderHistory = () => {
                                 <td>{order.isPaid ? order.paidAt.substring(0, 10) : "No"}</td>
                                 <td>{order.isDelivered ? order.deliveredAt.substring(0, 10) : "No"}</td>
                                 <td>
-                                    <Button
-                                        type="button"
-                                        variant="light"
-                                        onClick={() => navigate(routesPath.orderDetail.slice(0, 13) + order._id)}>
+                                    <Button type="button" variant="light" onClick={() => navigate(routesPath.orderDetail.slice(0, 13) + order._id)}>
                                         Details
                                     </Button>
                                 </td>

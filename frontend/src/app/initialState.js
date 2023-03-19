@@ -6,6 +6,10 @@ export const INITIAL_STATE = {
         product: undefined,
         loading: false,
         error: undefined,
+        page: undefined,
+        pages: undefined,
+        quantityProducts: undefined,
+        categories: [],
     },
     cart: {
         cartItems: JSON.parse(localStorage.getItem(cartItemKey)) || [],

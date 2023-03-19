@@ -21,4 +21,22 @@ function* fetchInfoProductSaga(action) {
     }
 }
 
-export { fetchProductsSaga, fetchInfoProductSaga };
+function* fetchFilteredProductSaga(action) {
+    try {
+        const res = yield call(api.fetchFilteredProductAPI, action.payload);
+        yield put(actions.fetchFilteredProduct.fetchFilteredProductSuccess(res.data));
+    } catch (error) {
+        yield put(actions.fetchFilteredProduct.fetchFilteredProductFail(getError(error)));
+    }
+}
+
+function* fetchCategoriesSaga() {
+    try {
+        const res = yield call(api.fetchCategoriesAPI);
+        yield put(actions.fetchCategories.fetchCategoriesSuccess(res.data));
+    } catch (error) {
+        yield put(actions.fetchCategories.fetchCategoriesFail(getError(error)));
+    }
+}
+
+export { fetchProductsSaga, fetchInfoProductSaga, fetchFilteredProductSaga, fetchCategoriesSaga };

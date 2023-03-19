@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { userModel } from "../models/userModel.js";
-import { generateToken } from "../../utils.js";
+import { generateAccessToken, generateRefreshToken } from "../../utils.js";
 import data from "../../../data.js";
 
 class userClass {
@@ -25,6 +25,11 @@ class userClass {
                 password: hashPassword,
             });
 
+            // token
+
+            const accessToken = generateAccessToken(newUser._id);
+            // const refreshToken = generateRefreshToken(newUser._id);
+
             res.status(200).send({
                 _id: newUser._id,
                 avatar: newUser.avatar,
@@ -32,7 +37,8 @@ class userClass {
                 password,
                 email: newUser.email,
                 isAmin: newUser.isAdmin,
-                token: generateToken(newUser),
+                token: accessToken,
+                // refresh: refreshToken,
             });
         } catch (error) {
             res.status(500).send({ message: error.message });
@@ -55,6 +61,10 @@ class userClass {
                 return;
             }
 
+            // token
+            const accessToken = generateAccessToken(user._id);
+            // const refreshToken = generateRefreshToken(user._id);
+
             res.status(200).send({
                 _id: user._id,
                 avatar: user.avatar,
@@ -62,7 +72,8 @@ class userClass {
                 name: user.name,
                 email: user.email,
                 isAmin: user.isAdmin,
-                token: generateToken(user),
+                token: accessToken,
+                // refresh: refreshToken,
             });
         } catch (error) {
             res.status(500).send({ message: error.message });
@@ -82,7 +93,7 @@ class userClass {
                 name: user.name,
                 email: user.email,
                 isAmin: user.isAdmin,
-                token: generateToken(user),
+                token: generateAccessToken(user),
             });
         } catch (error) {
             res.status(500).send({ message: error.message });

@@ -1,7 +1,7 @@
 import { takeLatest } from "redux-saga/effects";
 import * as actions from "~/redux/actions";
 import { fetchOrderSaga, fetchOrdersHistorySaga, payOrderSaga, placeOrderSaga } from "./orderSaga";
-import { fetchInfoProductSaga, fetchProductsSaga } from "./productSaga";
+import { fetchCategoriesSaga, fetchFilteredProductSaga, fetchInfoProductSaga, fetchProductsSaga } from "./productSaga";
 import { signInSaga, signUpSaga, updateUserInfoSaga } from "./userSaga";
 
 export default function* mySaga() {
@@ -14,4 +14,6 @@ export default function* mySaga() {
     yield takeLatest(actions.payOrder.payOrderRequest, payOrderSaga);
     yield takeLatest(actions.fetchOrdersHistory.fetchOrdersHistoryRequest, fetchOrdersHistorySaga);
     yield takeLatest(actions.updateUserInfo.updateUserInfoRequest, updateUserInfoSaga);
+    yield takeLatest(actions.fetchFilteredProduct.fetchFilteredProductRequest, fetchFilteredProductSaga);
+    yield takeLatest(actions.fetchCategories.fetchCategoriesRequest, fetchCategoriesSaga);
 }

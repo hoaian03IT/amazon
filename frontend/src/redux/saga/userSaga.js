@@ -23,7 +23,7 @@ function* signUpSaga(action) {
 
 function* updateUserInfoSaga(action) {
     try {
-        const res = yield call(api.updateUserInfo, action.payload);
+        const res = yield call(api.updateUserInfoAPI, action.payload);
         yield put(actions.updateUserInfo.updateUserInfoSuccess(res.data));
     } catch (error) {
         yield put(actions.updateUserInfo.updateUserInfoFail(getError(error)));

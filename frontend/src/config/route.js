@@ -10,4 +10,5 @@ export const routesPath = {
     orderDetail: "/orderdetail/:id",
     orderHistory: "/me/orderhistory",
     profile: "/me/profile",
+    search: "/search",
 };

@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { LoadingBox } from "~/components/LoadingBox";
-import { MessageBox } from "~/components/MessageBox";
 import { routesPath } from "~/config/route";
 import { updateUserInfo } from "~/redux/actions";
 import { userState$ } from "~/redux/selectors";
@@ -18,7 +17,7 @@ export const UserProfile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { loading, userInfo, error } = useSelector(userState$);
+    const { loading, userInfo } = useSelector(userState$);
 
     const [name, setName] = useState(userInfo?.name);
     const [avatar, setAvatar] = useState(userInfo?.avatar);

@@ -2,7 +2,7 @@ import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { faStar as faStarSolid, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const Rating = ({ rating, numReviews }) => {
+export const Rating = ({ caption, rating, numReviews }) => {
     return (
         <div className="rating">
             <span>
@@ -50,7 +50,8 @@ export const Rating = ({ rating, numReviews }) => {
                     <FontAwesomeIcon icon={faStarRegular} />
                 )}
             </span>
-            <span>&emsp;{numReviews} reviews</span>
+            {caption && <span>{caption}</span>}
+            {numReviews && <span>&emsp;{numReviews} reviews</span>}
         </div>
     );
 };

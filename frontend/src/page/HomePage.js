@@ -15,8 +15,7 @@ function HomePage() {
     const { products, loading, error } = useSelector(productState$);
 
     useEffect(() => {
-        if (products.length === 0) dispatch(fetchProducts.fetchProductsRequest());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        dispatch(fetchProducts.fetchProductsRequest());
     }, [dispatch]);
 
     return (
